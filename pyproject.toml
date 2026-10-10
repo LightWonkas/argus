@@ -41,7 +41,7 @@ dev = [
     "pytest-cov>=5.0",
     "types-pyyaml>=6.0",
     "httpx>=0.27",  # FastAPI TestClient
-    "fakeredis>=2.20",  # Redis Streams round-trip test (no network)
+    "fakeredis>=2.39.0",  # Redis Streams round-trip test (no network)
 ]
 # ingestion: ccxt (crypto) + websockets (public streams).
 ingestion = ["ccxt>=4.2", "websockets>=14"]
