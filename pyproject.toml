@@ -47,7 +47,7 @@ dev = [
 ingestion = ["ccxt>=4.2", "websockets>=14"]
 # bist: borsapy, an unofficial third-party library for Turkish market data (BIST/KAP/EVDS).
 # Optional on purpose; check the upstream sources' terms of use before enabling it.
-bist = ["borsapy>=0.10"]
+bist = ["borsapy>=0.11.0"]
 # OpenBB (global data/news) is a separate extra — very heavy; install only when needed.
 openbb = ["openbb>=4"]
 # platform: redis (event bus).
