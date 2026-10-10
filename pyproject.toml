@@ -51,7 +51,7 @@ bist = ["borsapy>=0.10"]
 # OpenBB (global data/news) is a separate extra — very heavy; install only when needed.
 openbb = ["openbb>=4"]
 # platform: redis (event bus).
-platform = ["redis>=5"]
+platform = ["redis>=8.1.0"]
 # brain: anthropic (LLM client).
 brain = ["anthropic>=0.40"]
 # interface: python-telegram-bot (command bot) + APScheduler (watch daemon).
