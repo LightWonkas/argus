@@ -44,7 +44,7 @@ dev = [
     "fakeredis>=2.20",  # Redis Streams round-trip test (no network)
 ]
 # ingestion: ccxt (crypto) + websockets (public streams).
-ingestion = ["ccxt>=4.2", "websockets>=14"]
+ingestion = ["ccxt>=4.2", "websockets>=17.2"]
 # bist: borsapy, an unofficial third-party library for Turkish market data (BIST/KAP/EVDS).
 # Optional on purpose; check the upstream sources' terms of use before enabling it.
 bist = ["borsapy>=0.10"]
