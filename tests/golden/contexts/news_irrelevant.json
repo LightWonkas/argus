@@ -1,0 +1,14 @@
+{
+  "name": "news_irrelevant",
+  "role": "news_router",
+  "symbol": "BTCUSDT",
+  "asset_class": "crypto",
+  "description": "Entertainment news unrelated to the market",
+  "synthetic": true,
+  "news": [
+    {
+      "title": "Famous singer's new album breaks records",
+      "source": "entertainment"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "news_crypto_routine",
+  "role": "news_router",
+  "symbol": "BTCUSDT",
+  "asset_class": "crypto",
+  "description": "Routine crypto news (low importance expected)",
+  "synthetic": true,
+  "news": [
+    {
+      "title": "Analysts debate year-end forecasts for Bitcoin",
+      "source": "cryptopanic",
+      "symbols": [
+        "BTCUSDT"
+      ]
+    }
+  ]
+}

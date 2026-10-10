@@ -1,0 +1,74 @@
+# ── Secrets (NEVER committed) ────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+config/local.*.yaml
+config/config.yaml
+
+# ── Claude Code local settings (machine-specific) ────────────────────────────
+.claude/
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ── Virtual environment ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Test / coverage / type checking ──────────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+
+# ── Data / storage (PIT store, sqlite, logs) ─────────────────────────────────
+*.sqlite
+*.sqlite3
+*.db
+data/
+logs/
+*.log
+
+# ── Frontend (web/ — dashboard) ──────────────────────────────────────────────
+web/node_modules/
+web/dist/
+web/.vite/
+web/*.local
+web/*.tsbuildinfo
+
+# ── Editor / OS ──────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# ── Generated reports (scripts/backtest.py, scripts/golden_eval.py) ─────────
+reports/

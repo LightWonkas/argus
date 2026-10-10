@@ -1,0 +1,18 @@
+{
+  "name": "missing_data",
+  "role": "deep",
+  "symbol": "THYAO",
+  "asset_class": "bist",
+  "description": "Short, un-warmed series - the model must acknowledge the uncertainty",
+  "closes": [
+    300.0,
+    300.5,
+    301.0,
+    301.5,
+    302.0,
+    302.5,
+    303.0,
+    303.5
+  ],
+  "synthetic": true
+}

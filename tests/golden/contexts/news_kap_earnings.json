@@ -1,0 +1,18 @@
+{
+  "name": "news_kap_earnings",
+  "role": "news_router",
+  "symbol": "ACME",
+  "asset_class": "bist",
+  "description": "Important KAP earnings disclosure (fictional company)",
+  "synthetic": true,
+  "news": [
+    {
+      "title": "ACME Q3 net profit reported 40% above expectations",
+      "summary": "Acme Holdings posted record revenue; EBITDA margin widened.",
+      "source": "KAP",
+      "symbols": [
+        "ACME"
+      ]
+    }
+  ]
+}

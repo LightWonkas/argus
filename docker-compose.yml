@@ -1,0 +1,106 @@
+# Argus — local stack: dashboard API + web cockpit + Redis. Storage is a SQLite volume.
+#
+#   docker compose up --build                  # cockpit on http://localhost:3000, synthetic demo data
+#   docker compose --profile watch up --build  # adds the live public-data watch loop and stream
+#
+# A `.env` file is optional. Without one the stack runs offline with no API keys.
+# Put secrets in `.env` on the host; keys typed into the cockpit's settings page are stored
+# inside the container and are lost when it is recreated.
+
+x-argus: &argus
+  build: .
+  env_file:
+    - path: .env
+      required: false
+  volumes:
+    - app-config:/app/config
+    - app-data:/app/data
+    - app-logs:/app/logs
+
+services:
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # One-shot: writes synthetic candles so the cockpit is not empty. It never overwrites
+  # series that hold data from a real source. Synthetic data is not market data.
+  seed:
+    <<: *argus
+    environment:
+      ARGUS_DATABASE_URL: sqlite:////app/data/argus.db
+    command: ["python", "scripts/seed_demo.py"]
+    restart: "no"
+
+  app:
+    <<: *argus
+    environment:
+      ARGUS_REDIS_URL: redis://redis:6379/0
+      ARGUS_DATABASE_URL: sqlite:////app/data/argus.db
+      ARGUS_DASHBOARD_BIND: 0.0.0.0
+    command: ["python", "-m", "argus", "--dashboard"]
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+    ports:
+      - "127.0.0.1:8787:8787"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8787/api/status', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 6
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./web
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3000:80"
+    restart: unless-stopped
+
+  # Live watch loop: public market data, triggers, alerts. Needs TELEGRAM_BOT_TOKEN and
+  # ARGUS_AUTHORIZED_CHAT_IDS in `.env`; it exits with a clear error otherwise.
+  # It never connects to order endpoints.
+  watch:
+    <<: *argus
+    profiles: ["watch"]
+    environment:
+      ARGUS_REDIS_URL: redis://redis:6379/0
+      ARGUS_DATABASE_URL: sqlite:////app/data/argus.db
+    command: ["python", "-m", "argus", "--watch"]
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Public spot/perpetual ticker, trade, depth and liquidation stream as its own process.
+  # Public market data only: no API key, no order endpoint.
+  crypto-stream:
+    <<: *argus
+    profiles: ["watch"]
+    environment:
+      ARGUS_DATABASE_URL: sqlite:////app/data/argus.db
+    command: ["python", "-m", "argus", "--crypto-stream"]
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  # Starts as a copy of the image's config/ (the example file); settings saved from the
+  # cockpit are written here as config.yaml.
+  app-config:
+  app-data:
+  app-logs:

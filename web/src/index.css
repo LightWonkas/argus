@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/* Argus — dark observatory aesthetic. Tabular monospace for numbers. */
+:root {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* ── react-grid-layout — Argus dark theme ─────────────────────────────── */
+
+/* Drag/resize placeholder (the drop target area). */
+.react-grid-item.react-grid-placeholder {
+  background: rgb(56 189 248 / 0.15); /* sky-400 */
+  border: 1px dashed rgb(56 189 248 / 0.5);
+  border-radius: 0.5rem;
+  opacity: 1;
+}
+
+/* Keep on top while dragging. */
+.react-grid-item.react-draggable-dragging {
+  z-index: 30;
+  transition: none;
+}
+.react-grid-item.resizing {
+  z-index: 30;
+  opacity: 0.95;
+}
+
+/* Bottom-right resize handle — a thin corner line instead of the default arrow. */
+.react-grid-item > .react-resizable-handle {
+  bottom: 3px;
+  right: 3px;
+}
+.react-grid-item > .react-resizable-handle::after {
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid rgb(113 113 122 / 0.8); /* zinc-500 */
+  border-bottom: 2px solid rgb(113 113 122 / 0.8);
+}
+
+/* ── Thin scrollbars (cockpit density) ────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(63 63 70) transparent; /* zinc-700 */
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgb(63 63 70);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
