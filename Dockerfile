@@ -1,7 +1,7 @@
 # Argus application image.
 # Pinned to Python 3.12 because it has the broadest dependency wheel coverage;
 # the project itself supports 3.11+.
-FROM python:3.12-slim AS base
+FROM python:3.15-slim AS base
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
